@@ -7,8 +7,8 @@ Your task is to use your knowledge to write a mining program, similar to the one
 The Lambda blockchain server works the same as the demos this week, _but it uses a DIFFERENT Proof of Work Algorithm._
 
 Multi-Ouroboros of Work Algorithm
-    - Find a number p' such that the last six digits of hash(p) are equal
-    to the first six digits of hash(p')
+    - Find a number p' such that the last six digits of hash(oldProof) are equal
+    to the first six digits of hash(newProof)
     - IE:  last_hash: ...999123456, new hash 123456888...
     - p is the previous proof, and p' is the new proof
 

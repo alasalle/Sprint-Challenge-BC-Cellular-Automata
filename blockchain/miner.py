@@ -13,8 +13,8 @@ import random
 def proof_of_work(last_proof):
     """
     Multi-Ouroboros of Work Algorithm
-    - Find a number p' such that the last six digits of hash(p) are equal
-    to the first six digits of hash(p')
+    - Find a number p' such that the last six digits of hash(prev) are equal
+    to the first six digits of hash(new)
     - IE:  last_hash: ...999123456, new hash 123456888...
     - p is the previous proof, and p' is the new proof
     """
@@ -23,7 +23,10 @@ def proof_of_work(last_proof):
 
     print("Searching for next proof")
     proof = 0
-    #  TODO: Your code here
+    prevHash = hashlib.sha256(str(last_proof).encode()).hexdigest()[-6:]
+
+    while valid_proof(prevHash, proof) != True:
+            proof += 1
 
     print("Proof found: " + str(proof) + " in " + str(timer() - start))
     return proof
@@ -37,8 +40,9 @@ def valid_proof(last_hash, proof):
     IE:  last_hash: ...999123456, new hash 123456888...
     """
 
-    # TODO: Your code here!
-    pass
+    firstSix = hashlib.sha256(str(proof).encode()).hexdigest()[:6]
+
+    return firstSix == last_hash
 
 
 if __name__ == '__main__':
