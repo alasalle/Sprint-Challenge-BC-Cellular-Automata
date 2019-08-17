@@ -4,7 +4,35 @@ def get_new_value(old_gen, old_automata):
     # TBC - add code to generate the next row of cells,
     # then replace the return statement below to
     # return the updated automata
-    return old_automata
+    start = SQ_NUM * old_gen
+    end = start + (SQ_NUM)
+    insert = SQ_NUM * (old_gen + 1)
+
+    if insert > SQ_NUM * SQ_NUM - SQ_NUM:
+        return old_automata
+    
+    new_automata = old_automata[:]
+    last_row = new_automata[start:end]
+
+    for (i, x) in enumerate(last_row):
+
+        old_top = insert - SQ_NUM + i
+        old_left = old_top - 1
+        old_right = old_top + 1
+        
+        old_sum = old_automata[old_top]
+        if old_left >= 0 or old_left > end:
+            old_sum += old_automata[old_left]
+
+        if old_right < insert:
+            old_sum += old_automata[old_right]
+
+        if old_sum == 0 or old_sum == 3:
+            new_automata[insert + i] = 0
+        else:
+            new_automata[insert + i] = 1
+
+    return new_automata
 
 # Define some colors and other constants
 BLACK = (0, 0, 0)
@@ -12,7 +40,7 @@ WHITE = (255, 255, 255)
 GRAY = (25, 25, 25)
 MARGIN = 3
 SQ_LENGTH = 10
-SQ_NUM = 49 # min squares per row/column is 15
+SQ_NUM = 80 # min squares per row/column is 15
 WIN_SIZE = (SQ_NUM+1)*MARGIN + SQ_NUM*SQ_LENGTH
 BTN_SIZE = 30
 
