@@ -44,7 +44,7 @@ def valid_proof(last_hash, proof):
     last_six = last_hash[-6:]
     first_six = guess_hash[:6]
     # firstSix = hashlib.sha256(str(proof).encode()).hexdigest()[:6]
-    return first_six == last_hash
+    return first_six == last_six
 
 
 if __name__ == '__main__':
