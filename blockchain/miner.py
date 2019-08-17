@@ -23,7 +23,7 @@ def proof_of_work(last_proof):
 
     print("Searching for next proof")
     proof = 0
-    prevHash = hashlib.sha256(str(last_proof).encode()).hexdigest()[-6:]
+    prevHash = hashlib.sha256(str(last_proof).encode()).hexdigest()
 
     while valid_proof(prevHash, proof) != True:
             proof += 1
@@ -39,10 +39,12 @@ def valid_proof(last_hash, proof):
 
     IE:  last_hash: ...999123456, new hash 123456888...
     """
-
-    firstSix = hashlib.sha256(str(proof).encode()).hexdigest()[:6]
-
-    return firstSix == last_hash
+    guess = f'{last_hash} {proof}'.encode()
+    guess_hash = hashlib.sha256(guess).hexdigest()
+    last_six = last_hash[-6:]
+    first_six = guess_hash[:6]
+    # firstSix = hashlib.sha256(str(proof).encode()).hexdigest()[:6]
+    return first_six == last_hash
 
 
 if __name__ == '__main__':
